@@ -55,72 +55,81 @@ export class ApiService {
 
   // Scan Front ID
   // Scan Front ID
-  scanFrontID(payload: any): Observable<any> {
+  // scanFrontID(payload: any): Observable<any> {
 
-    const header1= {'API_KEY': environment.apiKey,};
-    const customExif = JSON.stringify({
-      timestamp: new Date().toISOString(),
-      customField: 'prof_nas_fcr'
-    });
+  //   const header1= {'API_KEY': environment.apiKey,};
+  //   const customExif = JSON.stringify({
+  //     timestamp: new Date().toISOString(),
+  //     customField: 'prof_nas_fcr'
+  //   });
 
 
-    // Convert the encryption process to an Observable
-    const encryptedExif = this.dataStore.enkript(customExif);
-    // Handle the form data and HTTP request
+  //   // Convert the encryption process to an Observable
+  //   const encryptedExif = this.dataStore.enkript(customExif);
+  //   // Handle the form data and HTTP request
 
-        const formData = new FormData();
-        for (const key in payload) {
-          if (payload.hasOwnProperty(key)) {
-            formData.append('image', payload[key]);
-          }
-        }
-        formData.append('pamba', encryptedExif);
+  //       const formData = new FormData();
+  //       for (const key in payload) {
+  //         if (payload.hasOwnProperty(key)) {
+  //           formData.append('image', payload[key]);
+  //         }
+  //       }
+  //       formData.append('pamba', encryptedExif);
 
-        return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+  //       return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
 
-  }
+  // }
 
   // Scan Back ID / Passport
-  scanBackID(payload: any): Observable<any> {
+  // scanBackID(payload: any): Observable<any> {
 
-    let header1;
-    let customExif;
-
-
-    if (this.dataStore.scanningPassport) { // settings for Passport
-
-      header1= {'API_KEY': environment.apiKey,};
-      customExif = JSON.stringify({
-        timestamp: new Date().toISOString(),
-        customField: 'prof_nas_pcr'
-      });
+  //   let header1;
+  //   let customExif;
 
 
-    } else { // setting for Back ID
+  //   if (this.dataStore.scanningPassport) { // settings for Passport
 
-      header1= {'API_KEY': environment.apiKey,};
-      customExif = JSON.stringify({
-        timestamp: new Date().toISOString(),
-        customField: 'prof_nas_bcr'
-      });
-
-    }
+  //     header1= {'API_KEY': environment.apiKey,};
+  //     customExif = JSON.stringify({
+  //       timestamp: new Date().toISOString(),
+  //       customField: 'prof_nas_pcr'
+  //     });
 
 
-    // Convert the encryption process to an Observable
-    const encryptedExif = this.dataStore.enkript(customExif);
-    // Handle the form data and HTTP request
+  //   } else { // setting for Back ID
 
-    const formData = new FormData();
-        for (const key in payload) {
-          if (payload.hasOwnProperty(key)) {
-            formData.append('image', payload[key]);
-          }
-        }
-        formData.append('pamba', encryptedExif);
+  //     header1= {'API_KEY': environment.apiKey,};
+  //     customExif = JSON.stringify({
+  //       timestamp: new Date().toISOString(),
+  //       customField: 'prof_nas_bcr'
+  //     });
 
-    return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+  //   }
 
+
+  //   // Convert the encryption process to an Observable
+  //   const encryptedExif = this.dataStore.enkript(customExif);
+  //   // Handle the form data and HTTP request
+
+  //   const formData = new FormData();
+  //       for (const key in payload) {
+  //         if (payload.hasOwnProperty(key)) {
+  //           formData.append('image', payload[key]);
+  //         }
+  //       }
+  //       formData.append('pamba', encryptedExif);
+
+  //   return this.http.post<any>(`${environment.devOcr}frontid`, formData, { headers: header1 });
+
+  // }
+
+
+  scanMrz(payload: any): Observable<any> {
+    return this.http.post(`${environment.ocrUrl}ocr_mrz`, payload);
+  }
+
+  scanFrontIDNormal(payload: any): Observable<any> {
+    return this.http.post<any>(`${environment.ocrUrl}frontid`, payload);
   }
 
   // Save Images

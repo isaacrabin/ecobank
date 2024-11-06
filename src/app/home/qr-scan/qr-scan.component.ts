@@ -5,10 +5,9 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './qr-scan.component.html',
   styleUrls: ['./qr-scan.component.scss'],
 })
-export class QrScanComponent  implements OnInit {
+export class QrScanComponent {
 
   constructor() { }
 
-  ngOnInit() {}
 
 }

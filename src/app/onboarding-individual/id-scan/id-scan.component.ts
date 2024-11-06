@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { AlertController, ModalController } from '@ionic/angular';
 import { ToastrService } from 'ngx-toastr';
 import { CameraComponent } from 'src/app/_components/camera/camera.component';
+import { encrypt } from 'src/app/_helpers/string-encryptor';
 import { Identification } from 'src/app/_models/data-models';
 import { ApiService } from 'src/app/_services/api.service';
 import { DataStoreService } from 'src/app/_services/data-store.service';
 import { LoadingService } from 'src/app/_services/loading.service';
-const signatureUrl = 'https://ai.giktek.io/signature';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-id-scan',
@@ -17,10 +18,12 @@ const signatureUrl = 'https://ai.giktek.io/signature';
   styleUrls: ['./id-scan.component.scss'],
 })
 export class IdScanComponent implements OnInit {
+
   identification: Identification = {
     frontId: {},
     backId: {},
   };
+
   side: string = '';
   frontImage: any = '';
   progress: number = 0;
@@ -147,18 +150,35 @@ export class IdScanComponent implements OnInit {
   }
 
   //Verify signature image before saving it
-  verifySignature(payload: any) {
+
+
+  async verifySignature(payload: any){
     this.loader.scanningSignature = true;
     this.loader.signatureScanSuccess = true;
-    setTimeout(() => {
-      this.saveImage('signature', {
-        file: this.identification.signatureFile,
-        idType: '',
-        imageType: 'SIGNATURE',
-        match: '',
-        nationalId: '',
-      });
-    }, 2000);
+
+    await this.httpClient.post(`${environment.ocrUrl}signature`, payload).subscribe({
+      next: (resp: any) => {
+        this.loader.loading = false;
+        this.loader.savingSignature = false;
+        if(resp.is_signed){
+          this.saveImage("signature", {
+            file: this.identification.signatureFile,
+            idType: "",
+            imageType: "SIGNATURE",
+            match: "",
+            nationalId: "",
+          });
+        }
+        else{
+          this.toastr.error("Ensure your signature is signed on a plain white paper");
+        }
+      },
+      error: (err: any) => {
+        this.loader.scanningSignature = false;
+        this.loader.signatureScanSuccess = false;
+        this.toastr.error("An error verifying your signature. Please try again");
+      }
+    })
   }
 
   toPreference() {
@@ -168,20 +188,21 @@ export class IdScanComponent implements OnInit {
   scanPassport() {
     this.loader.scanningPassport = true;
 
-    try {
+    const backIdData = new FormData();
+    backIdData.append('file', this.dataStore.identification.passportFileNormal);
+
+
       this.apiService
-        .scanBackID({
-          national_id: this.identification.passportFile,
-          document_type: 'PASSPORT',
-        })
+        .scanMrz(backIdData)
         .subscribe({
           next: (res) => {
-            if (res.success) {
+            if (res.status === 'success') {
               this.loader.scanningPassport = false;
               this.dataStore.scanningPassport = false;
-              const id = res.id.split(' ').join('');
-              this.identification.nationalId = id;
-              this.identification.ocrKey = res.key;
+
+              this.identification.nationalId = res.data.document_number;
+              this.identification.ocrKey = encrypt(res.data.document_number);
+
               // Verify that the passport is correct
               this.verifyPassport(this.identification.nationalId);
             } else {
@@ -195,18 +216,13 @@ export class IdScanComponent implements OnInit {
             }
           },
           error: (err) => {
-            this.toastr.warning(
+            this.toastr.error(
                 'Ensure that your Passport is visible and clear in the picture.',
                 'Take a clearer photo'
             );
             this.loader.passportScanSuccess = false;
           },
         }); // end api call
-    } catch (error) {
-      this.loader.scanningPassport = false;
-      this.dataStore.scanningPassport = false;
-      this.scanningSolutions();
-    }
   }
 
   async verifyPassport(passportNumber: any) {

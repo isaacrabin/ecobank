@@ -25,7 +25,7 @@ export interface Identification {
     backIdBase64?: string;
     backIdFile?: File;
     backIdCaptured?: any;
-    backIdFileNormal?: File;
+    backIdFileNormal?: any;
   };
   frontId: {
     frontIdBase64?: string;
@@ -39,7 +39,7 @@ export interface Identification {
 
   backSaved?: boolean;
   passportBase64?: string;
-  passportFileNormal?: File;
+  passportFileNormal?: any;
   passportFile?: File;
   passportSaved?: boolean;
   signatureBase64?: string;
