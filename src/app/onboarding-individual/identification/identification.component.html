@@ -17,62 +17,156 @@
     </div>
 
     <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
-      <!-- <ion-radio-group (ionChange)="selectDocument($event)">
-        <ion-radio mode="md" name="radio1" value="ID" labelPlacement="end" color="secondary">National ID</ion-radio> <br>
-        <ion-radio mode="md"  style="padding-top: 10px;" name="radio1" color="secondary" value="PASSPORT" labelPlacement="end">Passport</ion-radio>
-      </ion-radio-group> <br> -->
+      <div class="flex flex-row gap-5">
+        <div class="flex-1" (click)="selectDocument('ID')">
+          <ion-item class="border p-2 mb-3" lines="none" [ngClass]="{'active-doctype':this.selectedDocument === 'ID', 'inactive-doctype': this.selectedDocument !== 'ID'}"
+          >
+            <div class="flex flex-col items-center justify-center w-full">
+              <img ngSrc="assets/images/id-card.svg" height="60" width="60" alt="National ID" priority>
+              <ion-label class="" style="font-weight: 500;">National ID</ion-label>
+            </div>
+          </ion-item>
+        </div>
 
-      <ion-radio-group (ionChange)="selectDocument($event)">
-        <ion-item class="border p-3 mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
-          <ion-label class="" style="font-weight: 500;">National ID</ion-label>
-          <ion-radio mode="md" labelPlacement="end" name="doc" color="secondary" value="ID"></ion-radio>
-        </ion-item>
-        <ion-item class="border p-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
-          <ion-label class="" style="font-weight: 500;">Passport</ion-label>
-          <ion-radio mode="md" labelPlacement="end" name="doc" color="secondary"  value="PASSPORT"></ion-radio>
-        </ion-item>
-      </ion-radio-group>
-
+        <div class="flex-1" (click)="selectDocument('PASSPORT')">
+          <ion-item class="border p-2 mb-3" lines="none" [ngClass]="{'active-doctype': this.selectedDocument === 'PASSPORT','inactive-doctype': this.selectedDocument !== 'PASSPORT'}">
+            <div class="flex flex-col items-center justify-center w-full">
+              <img ngSrc="assets/images/open-passport.svg" height="60" width="60" alt="passport" priority>
+              <ion-label class="" style="font-weight: 500;">Passport</ion-label>
+            </div>
+          </ion-item>
+        </div>
+      </div>
     </div>
 
-    <div class="uk-margin-large-top browse" style="padding-left:10px; font-family: Roboto-Regular !important; font-size: 14px;">
-      <h4 style="font-weight: 700; font-size: 14px;">Make sure your document is:</h4>
-      <div>
-        <ul>
-          <li>Clear and easy to read</li>
-          <li>Valid for atleast 3 or more months</li>
-          <li>NOT a photo of a screen</li>
-        </ul>
-      </div>
-     </div>
+    <div class="">
+      <!--NATIONAL ID-->
+     @if(selectedDocument === "ID"){
+       <ion-item (click)="selectDocToScan('ID')"  class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+         <div class="flex flex-row center items-center gap-4">
+           <img ngSrc="assets/images/id-card.svg" height="60" width="60" alt="National ID" priority>
+           <ion-label class="font-black" style="font-weight: 500;">National ID</ion-label>
+         </div>
+         @if(!loader.savedBack && !loader.savedFront){
+           <ion-icon slot="end" class="iconSize" name="chevron-forward-outline"></ion-icon>
+         }
+         @if(loader.savedBack && loader.savedFront){
+           <ion-icon  slot="end" class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
+         }
+       </ion-item>
+     }
 
+     <!--PASSPORT-->
+     @if(selectedDocument === "PASSPORT"){
+       <div>
+         @if(passportImage.length > 0 && !loader.scanningPassport && loader.passportScanSuccess){
+           <div class="uk-card-media-top mb-3">
+             <img [src]="this.passportImage" width="100%" alt="Passport" style="border: solid 3px #005B82; border-radius: 4px;">
+           </div>
+         }
+         @if((passportImage.length <= 0 || loader.scanningPassport) || !loader.passportScanSuccess){
+           <ion-item (click)="selectDocToScan('PASSPORT')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+             <div class="flex flex-row center items-center gap-4">
+               <img ngSrc="assets/images/open-passport.svg" height="60" width="60" alt="passport" priority>
+               <ion-label class="font-black" style="font-weight: 500;">
+                 @if(loader.scanningPassport){
+                   Scanning Passport...
+                   }
+                   @if(loader.savingPassport){
+                     Saving Passport... {{progress}}<br />
+                     <div class="items-center">
+                       <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
+                     </div>
+                     }
+                   @if(!loader.scanningPassport && !loader.savingPassport){
+                     Passport
+                   }
+                   @if(loader.savedPassport){
+                     Passport saved
+                   }
+               </ion-label>
+             </div>
+
+             @if(loader.savingPassport){
+               <ion-spinner slot="end" name="dots" color="secondary"></ion-spinner>
+             }
+             @if(loader.scanningPassport){
+               <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
+             }
+             @if(!loader.scanningPassport && !loader.savingPassport){
+               <ion-icon slot="end" class="iconSize" name="chevron-forward-outline"></ion-icon>
+             }
+             @if(loader.savedPassport){
+               <ion-icon slot="end" class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
+             }
+           </ion-item>
+           }
+       </div>
+     }
+
+     <!--SIGNATURE-->
      <div>
-      <div class="flex mx-auto justfy-center gap-4"  style="display: flex; justify-content: center; flex-direction: row;" >
-        <span class="border">
-          <img ngSrc="assets/images/id-tick.png" height="63" width="92" alt="" priority>
-        </span>
+       @if(side.length > 0 && !loader.scanningSignature && !loader.savingSignature && loader.signatureScanSuccess && !loader.savedSignature){
+         <div class="uk-card-media-top">
+           <img [src]="this.signImage" width="100%" alt="" style="border: solid 3px #005B82; border-radius: 4px;">
+         </div>
+       }
 
-        <span class="border">
-          <img ngSrc="assets/images/id-half.png" height="63" width="92" alt="" priority>
-        </span>
-        <span class="border">
-          <img ngSrc="assets/images/id-blur.png" height="63" width="92" alt="" priority>
-        </span>
-      </div>
-    </div> <br>
+       @if((this.signImage.length <= 0 || loader.scanningSignature) || !loader.signatureScanSuccess ||loader.savingSignature || loader.savedSignature){
+         <ion-item (click)="selectDocToScan('SIGNATURE')" class="border p-2 mb-3 h-28 flex justfy-center mb-3" lines="none" style="background: #c5c6d0; border: 1px #989 solid; border-radius: 5px;">
+           <div class="flex flex-row center items-center gap-4">
+             <img ngSrc="assets/images/sign.png" height="60" width="60" alt="passport" priority>
+             <ion-label class="font-black" style="font-weight: 500;">
+               @if(loader.scanningSignature && !loader.savingSignature){
+                 Scanning Signature
+                 }
 
+                 @if(loader.savingSignature){
+                   Saving Signature... {{progress}}%<br />
+                   <div class="items-center">
+                     <ion-progress-bar color="secondary"  [value]="progress/100"></ion-progress-bar>
+                   </div>
+                    }
+
+                 @if(!loader.scanningSignature && !loader.savingSignature && !loader.savedSignature){
+                   Signature
+                 }
+                 @if(loader.savedSignature){
+                   Saved Signature
+                 }
+             </ion-label>
+           </div>
+           @if(loader.savingSignature){
+             <ion-spinner slot="end" name="dots" color="secondary"></ion-spinner>
+           }
+           @if(loader.scanningSignature ){
+             <ion-spinner slot="end" name="circular" color="secondary"></ion-spinner>
+           }
+           @if(!loader.scanningSignature && !loader.savedSignature && !loader.savingSignature){
+             <ion-icon slot="end" class="iconSize" name="chevron-forward-outline"></ion-icon>
+           }
+           @if(loader.savedSignature){
+             <ion-icon slot="end" class="iconSize" style="color: green;" name="checkmark-done-outline"></ion-icon>
+           }
+         </ion-item>
+       }
+     </div>
+   </div>
+
+   <div class="uk-margin-small-top">
     <div class="uk-margin-medium-bottom uk-margin-large-top">
       <ion-button
-      type="submit"
-      (click)="toIdScan()" size="small" mode="md"
-       [disabled]="seletedDoc === ''"
+      (click)="toPreference()" size="small" mode="md"
       expand="block"
       fill="solid"
+      type="submit"
+      [disabled]="(!loader.savedFront || !loader.savedPassport) && !loader.savedSignature"
       >
       {{ loader.loading ? '' : 'Continue'}}
       <ion-spinner *ngIf="loader.loading" name="circular" color="light"></ion-spinner>
     </ion-button>
     </div>
+  </div>
   </div>
 </ion-content>
 

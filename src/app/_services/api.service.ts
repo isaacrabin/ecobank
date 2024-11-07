@@ -53,6 +53,7 @@ export class ApiService {
     return this.http.post(this.baseUrl + 'account-check/cv-account-validation', payload);
   }
 
+
   // Scan Front ID
   // Scan Front ID
   // scanFrontID(payload: any): Observable<any> {

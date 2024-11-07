@@ -121,7 +121,7 @@ export class SidesScanComponent implements OnInit {
         const formData = new FormData();
         formData.append('file', this.identification?.frontId.frontIdFileNormal);
 
-        await this.httpClient.post(`${environment.ocrUrl}/idx`, formData).subscribe({
+        await this.httpClient.post(`${environment.ocrUrl}idx`, formData).subscribe({
           next: (resp: any) => {
             if(resp.is_id){
                 this.apiService
@@ -212,8 +212,9 @@ export class SidesScanComponent implements OnInit {
             "Scanning Failed!"
           );
         }
-      } else {
-        this.toastr.error('Please scan Front Of ID First', 'Front ID First!');
+        }
+      else {
+        this.toastr.error('Please scan Front ID First', 'Front ID First!');
       }
         break;
       default:
@@ -313,26 +314,28 @@ export class SidesScanComponent implements OnInit {
   async verifyID(nationalId: any) {
     const alert = await this.alertCtrl.create({
       backdropDismiss: false,
-      mode: 'md',
+      mode: 'ios',
       cssClass: 'my-custom-class',
       header: 'CONFIRM',
-      message: `<h5>Please confirm that this is your National ID Number? \n
-                Note: This number will be used to automatically fetch your KRA PIN
-                </h5> \n \n
+      message: `<h5>Please confirm that this is your National ID Number?
+                </h5> \n
+
+                 <h5><strong>Note:</strong> Ensure the ID Number is captured correctly</h5> \n\n
                 <h1>${nationalId}<h1>
                 `,
       htmlAttributes: {},
       buttons: [
         {
-          text: 'NO',
+          text: 'Retake',
           role: 'cancel',
-          cssClass: 'secondary',
+          cssClass: 'my-secondary',
           handler: (blah) => {
             this.loader.scanningBack = false;
           },
         },
         {
-          text: 'YES',
+      text: 'Yes, I confirm',
+      cssClass:'my-primary',
 
           handler: () => {
             this.loader.backIdScanSuccess = true;
@@ -458,7 +461,7 @@ export class SidesScanComponent implements OnInit {
 
               //Now save the front image
               this.saveFrontImage({
-                file: this.dataStore.identification.frontId.frontIdFileNormal,
+                file: this.identification.frontId.frontIdFileNormal,
                 idType: 'NATIONAL_ID',
                 imageType: 'ID_FRONT',
                 match: this.identification.frontId?.frontIdOcrText,

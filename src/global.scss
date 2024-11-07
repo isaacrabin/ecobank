@@ -139,6 +139,13 @@ ion-content{
   transition: color 0.3s ease;
 }
 
+.my-primary{
+  color: #005B82 !important;
+}
+.my-secondary{
+  color: #222428 !important;
+  font-weight: 500 !important;
+}
 .step::before {
   content: '';
   position: absolute;
