@@ -111,6 +111,8 @@ export class PreferencesComponent  implements OnInit {
     value: any
   }) {
     if(event.value.countryCode === 'US') this.fatca = true;
+
+    if(event.value.countryCode !== 'US') this.fatca = false;
   }
 
   branchChange(event: {

@@ -461,10 +461,10 @@ export class SidesScanComponent implements OnInit {
 
               //Now save the front image
               this.saveFrontImage({
-                file: this.identification.frontId.frontIdFileNormal,
+                file: this.dataStore.identification.frontId.frontIdFileNormal,
                 idType: 'NATIONAL_ID',
                 imageType: 'ID_FRONT',
-                match: this.identification.frontId?.frontIdOcrText,
+                match: this.dataStore.identification.frontId?.frontIdOcrText,
                 nationalId: '',
               });
             } else {
