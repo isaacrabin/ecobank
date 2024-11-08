@@ -15,7 +15,7 @@
 
   <div class="container mx-auto pt-2 px-4 w-full">
     <div>
-      <h3 class="font-medium">
+      <h3 class="browse">
         Almost there, <br />
         Add your
         <span class="text-[#005B82]">occcupation</span> details
@@ -30,12 +30,14 @@
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Occupation<span class="uk-text-danger" >*</span>
         </ion-label>
         <ionic-selectable
+
           formControlName="occupation"
           [items]="occupations"
           itemValueField="occupationCode"
           [hasInfiniteScroll]="true"
           placeholder="Select"
           [isEnabled]="true"
+          mode="ios"
           itemTextField="occupationName"
           [canSearch]="true"
           (onChange)="selectionChange($event.value, 'occupation')">
