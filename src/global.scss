@@ -45,54 +45,30 @@
 // @import "@ionic/angular/css/palettes/dark.system.css";
 
 //Roboto font
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 @import 'animate.css/animate.min.css';
 
 @font-face {
-  font-family: "Roboto-Regular";
+  font-family: "Gilroy-Regular";
   font-style: normal;
   font-weight: normal;
-  src: local("Roboto-Regular"),
-    url("./assets/fonts/Roboto-Regular.ttf") format("truetype");
+  src: local("Gilroy-Regular"),
+    url("./assets/fonts/gilroy-bold/Gilroy-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "Roboto-Light";
+  font-family: "Gilroy-Medium";
   font-style: normal;
   font-weight: normal;
-  src: local("Roboto-Light"),
-    url("./assets/fonts/Roboto-Light.ttf") format("truetype");
+  src: local("Gilroy-Medium"),
+    url("./assets/fonts/gilroy-bold/Gilroy-Medium.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "Roboto-Italic";
+  font-family: "Gilroy-Bold";
   font-style: normal;
   font-weight: normal;
-  src: local("Roboto-Italic"),
-    url("./assets/fonts/Roboto-Italic.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Roboto-Bold";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Bold"),
-    url("./assets/fonts/Roboto-Bold.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Roboto-Medium";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Medium"),
-    url("./assets/fonts/Roboto-Medium.ttf") format("truetype");
-}
-@font-face {
-  font-family: "Roboto-Thin";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Roboto-Thin"),
-    url("./assets/fonts/Roboto-Thin.ttf") format("truetype");
+  src: local("Gilroy-Bold"),
+    url("./assets/fonts/gilroy-bold/Gilroy-Bold.ttf") format("truetype");
 }
 
 html,
@@ -101,7 +77,7 @@ body {
   background-color: #f3f3f4;
   color: #222428;
   width: 100% !important;
-  font-family: 'Roboto-Regular';
+  font-family: 'Gilroy-Regular';
  }
 
  ion-button {

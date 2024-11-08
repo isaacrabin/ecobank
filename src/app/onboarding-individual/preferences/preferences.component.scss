@@ -10,6 +10,7 @@ ion-content{
   display: flex;
   position: relative;
   overflow: auto;
+  font-family: "Gilroy-Regular";
   }
 
   .form-item{
@@ -22,7 +23,7 @@ ion-content{
   .browse {
     color: #444444;
     font-size: 1.3rem !important;
-    font-family: "Roboto-Medium";
+    font-family: "Gilroy-Medium";
   }
 
   .p-btn{
@@ -91,7 +92,7 @@ ion-content{
     .item-left{
 
       .itm-head{
-        font-family: "Roboto-Medium";
+        font-family: "Gilroy-Medium";
         font-size: 15px;
         font-weight: 600;
       }
