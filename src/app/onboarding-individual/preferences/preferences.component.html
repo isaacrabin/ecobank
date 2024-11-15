@@ -3,6 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/onboarding/id-scan"></ion-back-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <img class="header-img" src="assets/images/logo_blue.png" height="40" />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +14,6 @@
 
   <div class="mx-4  flex items-center gap-2">
     <ion-progress-bar  [value]=".5"></ion-progress-bar>
-
   </div>
 
   <div class="container mx-auto pt-2 px-4 w-full">
@@ -32,8 +35,9 @@
           [items]="branches"
           itemValueField="branchCode"
           [hasInfiniteScroll]="true"
-          placeholder="Select branch"
+          placeholder="--Select--"
           [isEnabled]="true"
+          class="uk-input"
           itemTextField="branchName"
           [canSearch]="true"
           (onChange)="branchChange($event)">
@@ -46,12 +50,15 @@
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Country of residence<span class="uk-text-danger" >*</span>
         </ion-label>
         <ionic-selectable
+
           formControlName="residence"
           [items]="countries"
           itemValueField="countryCode"
           [hasInfiniteScroll]="true"
-          placeholder="Select country"
+          placeholder="--Select--"
+          mode="ios"
           [isEnabled]="true"
+          class="uk-input"
           itemTextField="countryName"
           [canSearch]="true"
           (onChange)="countryChange($event)">
@@ -59,11 +66,29 @@
       </ion-item>
     </div>
 
+    <!-- <div>
+      <ionic-selectable
+        [items]="countries"
+        interface="popover"
+        class="uk-input"
+        itemTextField="countryName"
+        (ionSelect)="onSelect($event)"
+      ></ionic-selectable>
+
+      <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+        <ion-infinite-scroll-content
+          loadingSpinner="dots"
+          loadingText="Loading more data..."  
+
+        ></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div> -->
+
     <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Area of residence <span class="uk-text-danger" >*</span>
           </ion-label>
-          <ion-input name="text" maxlength="35" placeholder="e.g Nairobi" type="text" formControlName="address" label="">
+          <ion-input class="uk-input" name="text" maxlength="35" placeholder="e.g Nairobi" type="text" formControlName="address" label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
@@ -77,12 +102,12 @@
           </small>
       </div>
   </div>
-     <!-- Email Address -->
+     <!-- Building -->
      <div class="uk-margin-small-bottom">
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Building<span class="uk-text-danger">*</span>
           </ion-label>
-          <ion-input name="building" maxlength="35" type="text" formControlName="building"  label="">
+          <ion-input class="uk-input" name="building" maxlength="35" type="text" formControlName="building" placeholder="e.g. ABC Apartments" label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
@@ -108,7 +133,7 @@
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">Social Security Number <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="usSocialSecurityNumber" type="text" maxlength="15" label="" formControlName="usSocialSecurityNumber"
+        <ion-input class="uk-input" name="usSocialSecurityNumber" type="text" maxlength="15" label="" formControlName="usSocialSecurityNumber"
           (input)="formatSSN()"></ion-input>
       </ion-item>
     </div>
@@ -117,7 +142,7 @@
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Postal Code <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="usPostalCode" maxlength="35" type="text" label="" formControlName="usPostalCode"></ion-input>
+        <ion-input class="uk-input" name="usPostalCode" maxlength="35" type="text" label="" formControlName="usPostalCode"></ion-input>
       </ion-item>
     </div>
     <!-- US Mailing Address -->
@@ -125,7 +150,7 @@
       <ion-item lines="none" mode="md">
         <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">USA Mailing Address <span class="uk-text-danger">*</span>
         </ion-label>
-        <ion-input name="usMailingAddress" maxlength="35" type="text" label="" formControlName="usMailingAddress">
+        <ion-input class="uk-input" name="usMailingAddress" maxlength="35" type="text" label="" formControlName="usMailingAddress">
         </ion-input>
       </ion-item>
     </div>
@@ -181,9 +206,40 @@
      </div>
     </div>
    </div>
+   @if (fatca) {
+   <div class="uk-margin p-4" >
+    <button
+      type="submit"
+      class="uk-button uk-button-primary uk-width-1-1"
+      [disabled]="dataForm.invalid"
+      (click)="toNextOfKin()"
 
-  <br>
-  <div style="margin-top: 30px;" class="p-4">
+    >
+      <span *ngIf="!loader.loading" >Submit</span>
+      <span *ngIf="loader.loading">
+        Submitting...
+        <span uk-spinner="ratio: 0.5"></span
+      ></span>
+    </button>
+  </div>
+  }
+  @if(!fatca){
+  <div class="uk-margin p-4">
+    <button
+      type="submit"
+      class="uk-button uk-button-primary uk-width-1-1"
+      [disabled]="dataForm.invalid"
+      (click)="toNextOfKin()"
+    >
+      <span *ngIf="!loader.loading" >Submit</span>
+      <span *ngIf="loader.loading">
+        Submitting...
+        <span uk-spinner="ratio: 0.5"></span
+      ></span>
+    </button>
+  </div>
+  }
+  <!-- <div style="margin-top: 30px;" class="p-4">
     @if (fatca) {
       <ion-button type="submit" class="text-[#000]" size="medium" mode="md"
       (click)="toNextOfKin()"
@@ -206,8 +262,10 @@
       {{ loader.loading ? '' : 'Continue'}}
       <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
     </ion-button>
+
+
     }
-  </div>
+  </div> -->
 
   </form>
 

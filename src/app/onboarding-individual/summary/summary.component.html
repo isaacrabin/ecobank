@@ -33,7 +33,7 @@
           <span class="ion-text-center itm-head">Identification</span>
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
         </div>
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
@@ -72,7 +72,7 @@
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
         </div>
 
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
@@ -107,7 +107,7 @@
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
         </div>
 
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
@@ -141,7 +141,7 @@
           <span class="ion-text-center itm-head">Occupation</span>
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
         </div>
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
@@ -177,7 +177,7 @@
           <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span>
         </div>
 
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <table class="uk-table uk-table-small">
             <tbody>
               <tr>
@@ -209,7 +209,7 @@
           <!-- <span class="ion-text-center itm-head"><ion-icon color="secondary" name="create"></ion-icon></span> -->
         </div>
 
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: 'Gilroy-Medium' !important; font-size: 14px;">
           <h6>Front Id</h6>
           <div class="uk-card-media-top mb-3">
             <img
@@ -221,7 +221,7 @@
           </div>
         </div>
 
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <h6>Back Id</h6>
           <div class="uk-card-media-top mb-3">
             <img
@@ -233,7 +233,7 @@
           </div>
         </div>
 
-        <div class="" style="font-family: Roboto-regular !important; font-size: 14px;">
+        <div class="" style="font-family: Gilroy-Medium !important; font-size: 14px;">
           <h6>Signature</h6>
           <div class="uk-card-media-top mb-3">
             <img
@@ -253,17 +253,18 @@
       </div>
      </div>
 
-     <div class="m-3">
-      <ion-button type="submit" expand="block" mode="md" size="medium" (click)="createAccount()">
-        @if(!loader.loading) {
-          Create Account
-        }
-
-        @if(loader.loading) {
-          Sending...
-          <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
-        }
-      </ion-button>
-     </div>
+     <div class="uk-margin p-4">
+      <button
+        type="submit"
+        class="uk-button uk-button-primary uk-width-1-1"
+        (click)="createAccount()"
+      >
+        <span *ngIf="!loader.loading" >Submit</span>
+        <span *ngIf="loader.loading">
+          Submitting...
+          <span uk-spinner="ratio: 0.5"></span
+        ></span>
+      </button>
+    </div>
     </div>
   </ion-content>

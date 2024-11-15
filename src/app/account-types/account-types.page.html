@@ -20,7 +20,7 @@
       <div class="indiv-content">
         <h3 class="acc-title">{{productDetails[0]?.shortDescription}}</h3>
         <p>{{productDetails[0]?.longDescription}}</p>
-        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">Select {{productDetails[0]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">{{productDetails[0]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
       </div>
     </div>
   }
@@ -45,7 +45,7 @@
       <div class="indiv-content ">
         <h3 class="acc-title">{{productDetails[1]?.shortDescription}}</h3>
         <p>{{productDetails[1]?.longDescription}}</p>
-        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(1)">Select {{productDetails[1]?.shortDescription}} <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(1)">{{productDetails[1]?.shortDescription}} <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
       </div>
     </div>
   }
@@ -71,7 +71,7 @@
     <div class="indiv-content">
       <h3 class="acc-title">{{productDetails[2]?.shortDescription}}</h3>
       <p>{{productDetails[2]?.longDescription}}</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(2)">Select {{productDetails[2]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(2)">{{productDetails[2]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
     </div>
   </div>
 </ion-content>

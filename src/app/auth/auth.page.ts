@@ -146,7 +146,7 @@ export class AuthPage implements OnInit {
         },
         error:(err) => {
            this.loader.loading = false;
-           this.toastr.error("Request error try again");
+           this.toastr.error(err.message);
         }
        });
  }

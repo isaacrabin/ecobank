@@ -4,6 +4,9 @@
       <ion-back-button defaultHref="/onboarding/id-scan"></ion-back-button>
     </ion-buttons>
     <ion-title size="large" class="ion-text-center"></ion-title>
+    <ion-buttons slot="end">
+      <img class="header-img" src="assets/images/logo_blue.png" height="40" />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -48,7 +51,7 @@
             alt="passport"
             priority
           />
-          <ion-label class="font-black" style="font-weight: 500">
+          <ion-label class="font-black" style="font-weight: 600">
             @if(loader.scanningFront && !loader.savingFront){ Scanning Front
             ID... } @if(!loader.scanningFront && !loader.savingFront){ Front ID
             } @if(loader.savingFront){ Saving Front of ID ...
@@ -111,7 +114,7 @@
             alt="Back ID"
             priority
           />
-          <ion-label class="font-black" style="font-weight: 500">
+          <ion-label class="font-black" style="font-weight: 600">
             @if(loader.scanningBack && !loader.savingBack){ Scanning Back ID...
             } @if(!loader.scanningBack && !loader.savingBack){ Back ID }
             @if(!loader.scanningBack && loader.savingBack){ Saving Back of ID

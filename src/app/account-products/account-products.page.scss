@@ -1,6 +1,7 @@
 .body-content{
   --background: #f3f3f4;
   overflow: auto;
+  font-family: 'Gilroy-Regular';
   // height: 100vh;
 }
 
@@ -44,4 +45,8 @@
   width: 80%;
   margin-left: 10%;
 
+}
+
+.clamp{
+  font-family: 'Gilroy-Regular' !important;
 }

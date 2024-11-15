@@ -3,107 +3,110 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/requirements"></ion-back-button>
     </ion-buttons>
-    <ion-title size="large" class="ion-text-center title" ></ion-title>
+    <ion-title size="large" class="ion-text-center title"></ion-title>
+
+    <ion-buttons slot="end">
+      <img class="header-img" src="assets/images/logo_blue.png" height="40" />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="content-body">
   <div class="mx-4 flex items-center gap-2">
-    <ion-progress-bar  [value]=".125"></ion-progress-bar>
+    <ion-progress-bar [value]=".125"></ion-progress-bar>
   </div>
 
-
-  <div class="container mx-auto pt-3 px-4 w-full">
-    <div class="font-semibold">
-      <h3 class="browse">
-        Now let's verify your <span class="text-[#005B82]">phone number</span> and <span class="text-[#005B82]">email</span> to continue
-      </h3>
+  <div class="container mx-auto p-4 w-full">
+    <div class="jumbotron-head">
+      <h4 class="font-medium">
+        <strong
+          >We will first verify your
+          <span class="text-[#005B82]">Phone Number</span> and
+          <span class="text-[#005B82]">Email Address</span></strong
+        >
+      </h4>
     </div>
   </div>
 
-<div class="form-item">
-  <form   [formGroup]="authForm" style="">
-    <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important;">
-      <ion-label position="stacked" class="labels" style="font-size: .86em !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
-      <ngx-intl-tel-input
-      [cssClass]="'custom'"
-      formControlName="phone"
-      [preferredCountries]="[CountryISO.Kenya, CountryISO.Uganda, CountryISO.Rwanda]"
-      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-      [enableAutoCountrySelect]="false"
-      [enablePlaceholder]="true"
-      [customPlaceholder]="'0700 000 000'"
-      [searchCountryFlag]="true"
-      [separateDialCode]="false"
-      [selectedCountryISO]="CountryISO.Kenya"
-      ></ngx-intl-tel-input>
-        <div class="validation-error uk-text-danger">
-          <small class="error-message"
-              *ngIf="f['phone'].hasError('required') && f['phone'].dirty && f['phone'].touched">
-              <ion-icon name="information-circle-outline"></ion-icon>Phone number is required
-          </small>
+  <div class="form-item px-5">
+    <form [formGroup]="authForm" style="" (ngSubmit)="login()">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="emailAddress"
+          >Email Address <span class="uk-text-danger">*</span></label
+        >
+        <div class="uk-form-controls">
+          <input
+            class="uk-input"
+            id="emailAddress"
+            name="emailAddress"
+            formControlName="emailAddress"
+            type="text"
+            autocomplete="off"
+            placeholder=""
+          />
+        </div>
       </div>
-    </div>
 
-     <!-- Email Address -->
-     <div>
-      <ion-item lines="none" mode="md">
-          <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Email Address <span class="uk-text-danger">*</span>
-          </ion-label>
-          <ion-input name="email" maxlength="35" type="email" [ngClass]="{'invalid-border': f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty && f['emailAddress'].touched}" formControlName="emailAddress"  label="">
-          </ion-input>
-      </ion-item>
-      <div class="validation-error uk-text-danger">
-          <small class="error-message" *ngIf="f['emailAddress'].hasError('pattern') && f['emailAddress'].dirty && f['emailAddress'].touched">
-              <ion-icon name="information-circle-outline"></ion-icon>Email must be a valid email
-              address
-          </small>
-          <small class="error-message"
-              *ngIf="f['emailAddress'].hasError('required') && f['emailAddress'].dirty">
-              <ion-icon name="information-circle-outline"></ion-icon>Email is required
-          </small>
+      <div class="uk-margin">
+        <label class="uk-form-label" for="emailAddress"
+          >Phone Number <span class="uk-text-danger">*</span></label
+        >
+        <div class="uk-form-controls">
+          <ngx-intl-tel-input
+            [cssClass]="'uk-input'"
+            formControlName="phone"
+            [preferredCountries]="[CountryISO.Kenya, CountryISO.Uganda, CountryISO.Rwanda]"
+            [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+            [enableAutoCountrySelect]="false"
+            [enablePlaceholder]="true"
+            [customPlaceholder]="'0700 000 000'"
+            [searchCountryFlag]="true"
+            [separateDialCode]="false"
+            [selectedCountryISO]="CountryISO.Kenya"
+          ></ngx-intl-tel-input>
+          <div class="validation-error uk-text-danger">
+            <small
+              class="error-message"
+              *ngIf="f['phone'].hasError('required') && f['phone'].dirty && f['phone'].touched"
+            >
+              <ion-icon name="information-circle-outline"></ion-icon>Phone
+              number is required
+            </small>
+          </div>
+        </div>
       </div>
-  </div><br>
 
-  <div class="uk-margin-small-top">
-    <ion-item lines="none">
-     <ngx-recaptcha2 #captchaElem
-     [siteKey]="siteKey"
-     (reset)="handleReset()"
-     (expire)="handleExpire()"
-     (load)="handleLoad()"
-     (success)="handleSuccess($event)"
-     [useGlobalDomain]="false"
-     class="mb-2 g-recaptcha"
-     style="display: block; width: 100%; transform-origin: 0 0;"
-     formControlName="recaptcha">
-     </ngx-recaptcha2>
-    </ion-item>
- </div>
-  <!-- <div style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
-      <ion-checkbox slot="start" style="--background: transparent; margin-right: 0;" mode="md"></ion-checkbox>
-      <ion-label style="max-width: 500px; margin-left: 10px;">Accept
-        <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Terms and Conditions</a> and the
-        <a href="#" (click)="$event.stopPropagation()" style="color: #005B82 !important;">Privacy Policy</a>. Please review and accept to proceed.
-      </ion-label>
-  </div> -->
+      <div class="uk-margin-large-top">
+        <div class="uk-form-controls">
+          <ngx-recaptcha2
+            #captchaElem
+            [siteKey]="siteKey"
+            (reset)="handleReset()"
+            (expire)="handleExpire()"
+            (load)="handleLoad()"
+            (success)="handleSuccess($event)"
+            [useGlobalDomain]="false"
+            class="mb-2 g-recaptcha"
+            style="display: block; width: 100%; transform-origin: 0 0"
+            formControlName="recaptcha"
+          >
+          </ngx-recaptcha2>
+        </div>
+      </div>
 
-  <div class="mt-4 p-4">
-    <ion-button size="medium" [disabled]="loader.loading || authForm.invalid" mode="md" type="submit"
-    (click)="login()"
-    expand="block"
-    fill="solid"
-  >
-    {{ loader.loading ? '' : 'Continue'}}
-    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
-  </ion-button>
+      <div class="uk-margin">
+        <button
+          type="submit"
+          class="uk-button uk-button-primary uk-width-1-1"
+          [disabled]="authForm.invalid"
+        >
+          <span *ngIf="!loader.loading" >Submit</span>
+          <span *ngIf="loader.loading">
+            Submitting...
+            <span uk-spinner="ratio: 0.5"></span
+          ></span>
+        </button>
+      </div>
+    </form>
   </div>
-
-  <!-- <div class="p-btn uk-margin-xlarge-top">
-    <ion-button mode="md" expand="block" size="medium" [disabled]="this.authForm.invalid" (click)="login()">
-      Proceed
-    </ion-button>
-  </div> -->
-  </form>
-</div>
 </ion-content>

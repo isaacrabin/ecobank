@@ -25,7 +25,7 @@
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;">First name <span class="uk-text-danger" >*</span>
           </ion-label>
-          <ion-input name="firstName" maxlength="35" type="text" formControlName="firstName" label="">
+          <ion-input class="uk-input"  name="firstName" maxlength="35" type="text" formControlName="firstName" label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
@@ -40,7 +40,7 @@
       <ion-item lines="none" mode="md">
           <ion-label position="stacked" class="labels" style="transform: translateY(30%) scale(0.75) !important; font-size: 20px !important;" >Last name <span class="uk-text-danger">*</span>
           </ion-label>
-          <ion-input name="lastName" maxlength="35" type="text" formControlName="lastName"  label="">
+          <ion-input class="uk-input" name="lastName" maxlength="35" type="text" formControlName="lastName"  label="">
           </ion-input>
       </ion-item>
       <div class="validation-error uk-text-danger">
@@ -50,25 +50,33 @@
           </small>
       </div>
     </div>
-    <div class="uk-margin-small-bottom" style="margin-left: 15px; margin-right: 15px !important; margin-top: 15px;">
-      <ion-label position="stacked" class="labels" style="font-size: 15px !important;">Phone Number <span class="uk-text-danger">*</span></ion-label>
-      <ngx-intl-tel-input
-      [cssClass]="'custom'"
-      formControlName="phone"
-      [preferredCountries]="[CountryISO.Kenya, CountryISO.Uganda, CountryISO.Rwanda]"
-      [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
-      [enableAutoCountrySelect]="false"
-      [enablePlaceholder]="true"
-      [customPlaceholder]="'0700 000 000'"
-      [searchCountryFlag]="true"
-      [separateDialCode]="false"
-      [selectedCountryISO]="CountryISO.Kenya"
-      ></ngx-intl-tel-input>
+
+    <div class="uk-margin px-4">
+      <label class="uk-form-label" for="emailAddress"
+        >Phone Number <span class="uk-text-danger">*</span></label
+      >
+      <div class="uk-form-controls">
+        <ngx-intl-tel-input
+          [cssClass]="'uk-input'"
+          formControlName="phone"
+          [preferredCountries]="[CountryISO.Kenya, CountryISO.Uganda, CountryISO.Rwanda]"
+          [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+          [enableAutoCountrySelect]="false"
+          [enablePlaceholder]="true"
+          [customPlaceholder]="'0700 000 000'"
+          [searchCountryFlag]="true"
+          [separateDialCode]="false"
+          [selectedCountryISO]="CountryISO.Kenya"
+        ></ngx-intl-tel-input>
         <div class="validation-error uk-text-danger">
-          <small class="error-message"
-              *ngIf="f['phone'].hasError('required') && f['phone'].dirty && f['phone'].touched">
-              <ion-icon name="information-circle-outline"></ion-icon>Phone number is required
+          <small
+            class="error-message"
+            *ngIf="f['phone'].hasError('required') && f['phone'].dirty && f['phone'].touched"
+          >
+            <ion-icon name="information-circle-outline"></ion-icon>Phone
+            number is required
           </small>
+        </div>
       </div>
     </div>
 
@@ -90,21 +98,21 @@
       </ion-item>
     </div>
 
- <br>
-  <div style="margin-top: 30px;" class="p-4">
-    <ion-button class="text-[#000]" type="submit" size="medium" mode="md"
-    (click)="savePreference()"
-    expand="block"
-    fill="solid"
-    [disabled]="!authForm.valid"
-    >
-    {{ loader.loading ? '' : 'Continue'}}
-    <ion-spinner *ngIf="loader.loading" name="circular" color="secondary"></ion-spinner>
-  </ion-button>
-  </div>
-
-
-
+    <br />
+    <div class="uk-margin p-4">
+      <button
+        type="submit"
+        class="uk-button uk-button-primary uk-width-1-1"
+        [disabled]="!authForm.valid"
+        (click)="savePreference()"
+      >
+        <span *ngIf="!loader.loading" >Submit</span>
+        <span *ngIf="loader.loading">
+          Submitting...
+          <span uk-spinner="ratio: 0.5"></span
+        ></span>
+      </button>
+    </div>
   </form>
 
 </div>

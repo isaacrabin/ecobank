@@ -33,7 +33,7 @@ export class PreferencesComponent  implements OnInit {
   fatca: boolean = false;
 
   branches = [];
-  countries = [];
+  countries: any = [];
   relationships = [];
   auth: any = {};
 
@@ -54,6 +54,9 @@ export class PreferencesComponent  implements OnInit {
     countryId:"92",
     countryName:"Kenya"
   }]
+
+  currentPage = 1;
+  hasMoreData = true;
 
   get f() {
     return this.dataForm.controls;
@@ -113,6 +116,35 @@ export class PreferencesComponent  implements OnInit {
     if(event.value.countryCode === 'US') this.fatca = true;
 
     if(event.value.countryCode !== 'US') this.fatca = false;
+  }
+
+  onSelect(event: any){
+
+  }
+
+  loadData(event: any) {
+    // Fetch data for the next page
+    this.fetchMoreData().then((newData: any) => {
+      this.countries = [...this.countries, ...newData];
+      this.currentPage++;
+
+      // Check if there's more data to load
+      this.hasMoreData = newData.length > 0;
+
+      event.target.complete();
+    });
+  }
+
+  fetchMoreData() {
+    // Implement your data fetching logic here, e.g., using a service or API call
+    // ...
+    return new Promise(resolve => {
+      // Simulate data fetching
+      setTimeout(() => {
+        const newData = [...Array(10)].map(x => ({ id: Math.random(), text: 'Item' }));
+        resolve(newData);
+      }, 1000);
+    });
   }
 
   branchChange(event: {

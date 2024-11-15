@@ -114,7 +114,6 @@ export class DataStoreService {
   }
 
   encryptFromPayload(payload: any): any {
-
     const customExif = JSON.stringify({
       timestamp: new Date().toISOString(),
       customField: payload.choice, //prof_nas_fcr
@@ -122,7 +121,6 @@ export class DataStoreService {
     });
 
     return this.enkript(customExif);
-
   }
 
 }
