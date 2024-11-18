@@ -3,6 +3,10 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/onboarding/preferences"></ion-back-button>
     </ion-buttons>
+
+    <ion-buttons slot="end">
+      <img class="header-img" src="assets/images/logo_blue.png" height="40" />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +18,7 @@
   <div class="container mx-auto pt-2 px-4 w-full">
     <div>
       <h3 class="browse">
-        Now add your <span class="text-[#005B82]">Next of Kin</span> details
+        Now add your <strong class="text-[#005B82]">Next of Kin</strong> details
       </h3>
     </div>
   </div>
@@ -89,8 +93,9 @@
           [items]="relationships"
           itemValueField="relationCode"
           [hasInfiniteScroll]="true"
-          placeholder="Select"
+          placeholder="--Select--"
           [isEnabled]="true"
+          class="uk-input"
           itemTextField="relationDescription"
           [canSearch]="true"
           (onChange)="relationshipChange($event)">

@@ -18,9 +18,22 @@
   @if(!loader.loading){
     <div class="indiv-section">
       <div class="indiv-content">
-        <h3 class="acc-title">{{productDetails[0]?.shortDescription}}</h3>
+        <h3 class="acc-title"><strong>{{productDetails[0]?.shortDescription}}</strong></h3>
         <p>{{productDetails[0]?.longDescription}}</p>
-        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">{{productDetails[0]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+        <!-- <ion-button color="primary" mode="md" (click)="onSelectAccoutType(0)">{{productDetails[0]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button> -->
+        <div class="uk-margin">
+          <button
+            type="submit"
+            class="uk-button uk-button-primary"
+            (click)="onSelectAccoutType(0)"
+          >
+            <span *ngIf="!loader.loading" >{{productDetails[0]?.shortDescription}}</span>
+            <span *ngIf="loader.loading">
+              Submitting...
+              <span uk-spinner="ratio: 0.5"></span
+            ></span>
+          </button>
+        </div>
       </div>
     </div>
   }
@@ -43,9 +56,21 @@
   @if(!loader.loading){
     <div class="joint-section uk-flex uk-flex-right">
       <div class="indiv-content ">
-        <h3 class="acc-title">{{productDetails[1]?.shortDescription}}</h3>
+        <h3 class="acc-title"><strong>{{productDetails[1]?.shortDescription}}</strong></h3>
         <p>{{productDetails[1]?.longDescription}}</p>
-        <ion-button color="primary" mode="md" (click)="onSelectAccoutType(1)">{{productDetails[1]?.shortDescription}} <ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+        <div class="uk-margin">
+          <button
+            type="submit"
+            class="uk-button uk-button-primary"
+            (click)="onSelectAccoutType(1)"
+          >
+            <span *ngIf="!loader.loading" >{{productDetails[1]?.shortDescription}}</span>
+            <span *ngIf="loader.loading">
+              Submitting...
+              <span uk-spinner="ratio: 0.5"></span
+            ></span>
+          </button>
+        </div>
       </div>
     </div>
   }
@@ -69,9 +94,21 @@
 
   <div class="bus-section">
     <div class="indiv-content">
-      <h3 class="acc-title">{{productDetails[2]?.shortDescription}}</h3>
+      <h3 class="acc-title"><strong>{{productDetails[2]?.shortDescription}}</strong></h3>
       <p>{{productDetails[2]?.longDescription}}</p>
-      <ion-button color="primary" mode="md" (click)="onSelectAccoutType(2)">{{productDetails[2]?.shortDescription}}<ion-icon name="chevron-forward-outline" color="secondary"></ion-icon></ion-button>
+      <div class="uk-margin">
+        <button
+          type="submit"
+          class="uk-button uk-button-primary"
+          (click)="onSelectAccoutType(2)"
+        >
+          <span *ngIf="!loader.loading" >{{productDetails[2]?.shortDescription}}</span>
+          <span *ngIf="loader.loading">
+            Submitting...
+            <span uk-spinner="ratio: 0.5"></span
+          ></span>
+        </button>
+      </div>
     </div>
   </div>
 </ion-content>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -18,6 +18,7 @@ import { ApiService } from '../_services/api.service';
     AccountProductsPageRoutingModule
   ],
   declarations: [AccountProductsPage],
-  providers: [ApiService]
+  providers: [ApiService],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AccountProductsPageModule {}

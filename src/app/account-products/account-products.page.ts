@@ -29,6 +29,30 @@ export class AccountProductsPage implements OnInit {
     image: ''
   };
 
+  slideOpts = {
+    initialSlide: 0,
+    speed: 400,
+    slideShadows: true,
+    slidesPerView: 1,
+
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      spaceBetween: 50,
+      modifier: 1,
+      slideShadows: true,
+    },
+    cubeEffect: {
+      shadow: true,
+      slideShadows: true,
+      shadowOffset: 20,
+      shadowScale: 0.94,
+    },
+
+  };
+
+
   constructor(
    private modalCtrl: ModalController,
    private router: Router,

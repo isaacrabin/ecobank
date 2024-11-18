@@ -5,17 +5,10 @@
     </ion-buttons>
     <!-- <ion-title size="large" class="ion-text-center" >Individual Account</ion-title> -->
   </ion-toolbar>
-  <!-- <div class="progress-bar">
-    <div class="step active"></div>
-    <div class="step active"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-    <div class="step"></div>
-  </div> -->
 </ion-header>
 
-<ion-content class="body-content">
-  <div class="container mx-auto p-4 w-full">
+<ion-content class="body-content h-full w-full" >
+  <div class="container mx-auto px-4 py-2 w-full">
     <div>
       <h3 class="font-medium">
         Now proceed to select the <strong class="text-[#005B82]">{{this.accountToOpen.shortDescription}} Product</strong> you wish to open
@@ -23,7 +16,7 @@
     </div>
   </div>
 
-  <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider finite="true">
+  <div class="h-full">
     @if(loader.loading){
       <div class="ion-text-center img-skeleton">
         <div>
@@ -53,12 +46,100 @@
       </div>
     }
     @if(!loading){
-      <ul  class="uk-slider-items uk-margin-small-left uk-margin-large-right" style="margin-right: 30px !important;" data-uk-smooth-scroll>
+
+      <div *ngIf="products.length > 0 && !loader.loading" class="h-full">
+        <swiper-container
+          [slidesPerView]="1.1"
+          [loop]="false"
+          [spaceBetween]="-20"
+          class="h-full"
+        >
+          <swiper-slide
+          *ngFor="let product of products; let i = index"
+            style="width: calc(100% - 90%)"
+          >
+            <div class="uk-flex uk-flex-column uk-flex-middle">
+              <ion-card mode="ios" class="image-container">
+                <div>
+                <img *ngIf="!product?.policyImageName" src="assets/images/placeholder.png" />
+                <img *ngIf="i === 0" src="assets/images/classic.png" height="1800" width="900" />
+                <img *ngIf="i === 1" src="assets/images/premium.png" height="1800" width="900" />
+                <img *ngIf="i === 2" src="assets/images/advantage.png" height="1800" width="900" />
+                <img *ngIf="i === 3" src="assets/images/student.png" height="1800" width="900" />
+                <img *ngIf="i === 4" src="assets/images/classic.png" height="1800" width="900" />
+                <img *ngIf="i === 5" src="assets/images/classic.png" height="1800" width="900" />
+                <img *ngIf="i === 6" src="assets/images/classic.png" height="1800" width="900" />
+                </div>
+
+              </ion-card>
+              <ion-card class="image-description">
+              <div >
+                <ion-card-header>
+                  <ion-card-subtitle class="item-title"
+                    >{{product?.name | uppercase}}</ion-card-subtitle
+                  >
+                </ion-card-header>
+                <ion-card-content>
+                  <div class="uk-column-1-2 uk-column-divider">
+                    <div style="font-family: 'Gilroy-Regular' !important;">
+                      <small><strong>Monthly Fees</strong></small>
+                      <p>{{product?.monthlyFee}}</p>
+                    </div>
+                    <div style="font-family: 'Gilroy-Regular' !important;">
+                      <small><strong>Min. Balance</strong></small>
+                      <p>{{product?.openningBalance | titlecase}}</p>
+                    </div>
+                  </div>
+                  <br />
+                  <div *ngIf="product?.policyDecription" class="clamp">
+                    <!-- <span [innerHtml]="product?.policyDecription"></span> -->
+                    <span
+                    [innerHtml]="product?.policyDecription | slice:0:100">
+                    <span *ngIf="product.policyDecription.length > 100">...</span>
+                  </span>
+                  </div>
+
+                  <div *ngIf="product?.targetMarket" class="clamp"><span
+                    [innerHtml]="product?.targetMarket"></span></div>
+
+                  <br />
+
+                  <div class="ion-float-left ion-padding-top ion-padding-bottom">
+                    <ion-button
+                      size="small"
+                      fill="clear"
+                      color="secondary"
+                      (click)="onViewMore(i)"
+                      >View More ...
+                    </ion-button>
+                  </div>
+                  <div class="ion-float-right ion-padding-top ion-padding-bottom">
+                    <ion-button
+                      size="small"
+                      fill="solid"
+                      shape="round"
+                      color="secondary"
+                      (click)="selectProduct(i)"
+                      >Choose
+                      <ion-icon
+                        slot="end"
+                        name="chevron-forward-outline"
+                      ></ion-icon>
+                    </ion-button>
+                  </div>
+                </ion-card-content>
+              </div>
+            </ion-card>
+            </div>
+          </swiper-slide>
+        </swiper-container>
+      </div>
+
+      <!-- <ul  class="uk-slider-items uk-margin-small-left uk-margin-large-right" style="margin-right: 30px !important;" data-uk-smooth-scroll>
         <li class="uk-width-4-5 uk-margin-small-right" style="width: auto !important;" *ngFor="let product of products; let i = index" >
              <div class="swiper-el">
               <div class="image-container">
-                <!-- <img ngSrc="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt="" priority> -->
-                <!-- <img src="{{imageUrl}}{{product?.policyImageName}}" height="1800" width="900" alt=""> -->
+
                 @if(i === 0){
                   <img src="assets/images/classic.png" height="1800" width="900" alt="">
                 }
@@ -99,7 +180,7 @@
                       </div>
                       <div>
                        <ion-button mode="md" (click)="selectProduct(i)">Apply Now
-                        <!-- <ion-icon slot="end" name="chevron-forward-outline"  color="secondary"></ion-icon> -->
+
                        </ion-button>
                       </div>
                   </div>
@@ -110,7 +191,7 @@
 
         </li>
 
-    </ul>
+    </ul> -->
     }
 
     <!-- <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-dark uk-margin-large-bottom"></ul> -->
