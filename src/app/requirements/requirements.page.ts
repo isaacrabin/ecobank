@@ -29,19 +29,20 @@ export class RequirementsPage implements OnInit {
   }
 
   async openTerms() {
-    const modal = await this.modalController.create({
-    component: TermsModalComponent,
-      cssClass: 'terms-modal',
-    });
+    await this.router.navigate(['auth']);
+    // const modal = await this.modalController.create({
+    // component: TermsModalComponent,
+    //   cssClass: 'terms-modal',
+    // });
 
-    modal.onWillDismiss().then((data: any) => {
-      if(data.data === true){
-        this.router.navigate(['auth']);
-        return;
-      }
-    })
+    // modal.onWillDismiss().then((data: any) => {
+    //   if(data.data === true){
+    //     this.router.navigate(['auth']);
+    //     return;
+    //   }
+    // })
 
-    return await modal.present();
+    // return await modal.present();
   }
 
 }

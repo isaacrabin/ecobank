@@ -4,19 +4,23 @@
       <ion-back-button defaultHref="/account-types"></ion-back-button>
     </ion-buttons>
     <!-- <ion-title size="large" class="ion-text-center" >Individual Account</ion-title> -->
+
+    <ion-buttons slot="end">
+      <img class="header-img" src="assets/images/logo_blue.png" height="40" />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="body-content h-full w-full" >
   <div class="container mx-auto px-4 py-2 w-full">
     <div>
-      <h3 class="font-medium">
+      <h3 class="browse">
         Now proceed to select the <strong class="text-[#005B82]">{{this.accountToOpen.shortDescription}} Product</strong> you wish to open
       </h3>
     </div>
   </div>
 
-  <div class="h-full">
+  <div class="h-[115vh]">
     @if(loader.loading){
       <div class="ion-text-center img-skeleton">
         <div>
@@ -81,11 +85,11 @@
                 </ion-card-header>
                 <ion-card-content>
                   <div class="uk-column-1-2 uk-column-divider">
-                    <div style="font-family: 'Gilroy-Regular' !important;">
+                    <div style="font-family: 'Gilroy-Medium' !important;">
                       <small><strong>Monthly Fees</strong></small>
                       <p>{{product?.monthlyFee}}</p>
                     </div>
-                    <div style="font-family: 'Gilroy-Regular' !important;">
+                    <div style="font-family: 'Gilroy-Medium' !important;">
                       <small><strong>Min. Balance</strong></small>
                       <p>{{product?.openningBalance | titlecase}}</p>
                     </div>
@@ -102,9 +106,8 @@
                   <div *ngIf="product?.targetMarket" class="clamp"><span
                     [innerHtml]="product?.targetMarket"></span></div>
 
-                  <br />
 
-                  <div class="ion-float-left ion-padding-top ion-padding-bottom">
+                  <div class="ion-float-left ion-padding-bottom">
                     <ion-button
                       size="small"
                       fill="clear"
@@ -113,7 +116,7 @@
                       >View More ...
                     </ion-button>
                   </div>
-                  <div class="ion-float-right ion-padding-top ion-padding-bottom">
+                  <div class="ion-float-right ion-padding-bottom">
                     <ion-button
                       size="small"
                       fill="solid"

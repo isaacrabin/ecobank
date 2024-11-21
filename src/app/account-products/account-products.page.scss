@@ -5,6 +5,13 @@
   // height: 100vh;
 }
 
+.browse {
+  color: #444444;
+  font-size: 1.5rem !important;
+  font-family: "Gilroy-Medium";
+  font-weight: 600;
+}
+
 ion-card-subtitle{
   font-family: 'Gilroy-Regular' !important;
 }
@@ -44,5 +51,5 @@ ion-card-subtitle{
 }
 
 .clamp{
-  font-family: 'Gilroy-Regular' !important;
+  font-family: 'Gilroy-Medium' !important;
 }

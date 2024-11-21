@@ -6,14 +6,6 @@ const dev2 = 'https://digitalonboard.ecobank.com/self-onboarding/api/business/v2
 const ocrUrl = 'https://ai.giktek.io/'
 
 
-
-// const dev = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/v1/';
-// const dev1 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v1/';
-// const dev2 = 'https://uat-onboarding.stanbicbank.co.ke/rest/individual-onboarding/api/business/v2/';
-// const ocrUrl = 'https://ai.giktek.io/'
-// const imageUrl = "https://uat-onboarding.stanbicbank.co.ke/rest/sms-mcs/image/getImage/";
-
-
 export const environment = {
   production: true,
   imageUrl: imageUrl,

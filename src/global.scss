@@ -81,6 +81,13 @@ body {
  }
 
 
+ .testee {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
  h3{
   font-family: 'Gilroy-Medium' !important;
  }

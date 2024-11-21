@@ -4,9 +4,19 @@
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <!-- <ion-title size="large" class="ion-text-center" >Choose Your Account</ion-title> -->
+
+    <ion-buttons slot="end">
+      <img class="header-img" src="assets/images/logo_blue.png" height="40" />
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content class="body-content" >
+<ion-content
+class="body-content"
+[scrollEvents]="true"
+(ionScrollStart)="handleScrollStart()"
+(ionScroll)="handleScroll($any($event))"
+(ionScrollEnd)="handleScrollEnd()"
+ >
   <div class="container mx-auto p-4 w-full">
     <div class="font-semibold">
       <h3 class="browse">{{getGreeting()}}, <br>
@@ -14,6 +24,16 @@
       </h3>
     </div>
   </div>
+
+  @if(scrollTop < 200 && !isScrolling){
+    <div class="testee" (click)="scrollToBottom()">
+      <ion-icon
+        class="centered-element animate__animated animate animate__bounce animate__infinite animate_slower"
+        color="secondary"
+        name="chevron-down-circle-outline"
+      ></ion-icon>
+    </div>
+    }
 
   @if(!loader.loading){
     <div class="indiv-section">
@@ -92,7 +112,7 @@
 
 
 
-  <div class="bus-section">
+  <div class="bus-section" #scrollTarget>
     <div class="indiv-content">
       <h3 class="acc-title"><strong>{{productDetails[2]?.shortDescription}}</strong></h3>
       <p>{{productDetails[2]?.longDescription}}</p>

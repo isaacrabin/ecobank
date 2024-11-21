@@ -1,10 +1,11 @@
 /* eslint-disable @angular-eslint/no-empty-lifecycle-method */
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { IAccountType } from '../_models/types';
 import { LoadingService } from '../_services/loading.service';
 import { MainAccountDetails, ObjectMainAccountDetails } from '../_models/business-model';
 import { ApiService } from '../_services/api.service';
+import { ScrollDetail } from '@ionic/angular';
 
 @Component({
   selector: 'app-account-types',
@@ -14,6 +15,10 @@ import { ApiService } from '../_services/api.service';
 export class AccountTypesPage implements OnInit {
 
   productDetails: ObjectMainAccountDetails[] = [];
+  scrollTop: number = 0;
+  isScrolling = false;
+  @ViewChild('scrollTarget', { static: false }) private scrollTarget: ElementRef | undefined;
+
   constructor(
     private router: Router,
     public loader: LoadingService,
@@ -39,6 +44,18 @@ export class AccountTypesPage implements OnInit {
     } else {
         return "Hello";
     }
+  }
+
+  handleScrollStart() {
+    this.isScrolling = true;
+  }
+
+  handleScroll(ev: CustomEvent<ScrollDetail>) {
+    this.scrollTop = ev.detail.scrollTop;
+  }
+
+  handleScrollEnd() {
+    this.isScrolling = false;
   }
 
     /** Fetch all account details */
@@ -82,6 +99,12 @@ export class AccountTypesPage implements OnInit {
           this.router.navigate(['account-products']);
         break;
 
+    }
+  }
+
+  scrollToBottom() {
+    if (this.scrollTarget) {
+      this.scrollTarget.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
     }
   }
 

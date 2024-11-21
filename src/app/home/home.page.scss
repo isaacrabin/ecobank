@@ -5,7 +5,7 @@
   background-image: url(../../assets/images/home-bg.png);
   background-attachment: scroll;
   background-repeat: no-repeat;
-  background-size:contain;
+  background-size:cover;
   margin-top: 0 !important;
 }
 
@@ -17,7 +17,7 @@
 .welcome-info{
   padding-left: 21px;
   color: #ffff;
-  margin-top: calc(100vh - 65vh);
+  margin-top: 35vh;
 
   .welcome-title{
     font-family: "Gilroy-Bold", sans-serif !important;
@@ -129,7 +129,7 @@ ion-button{
 .centered-element {
   position: absolute;
   font-size: 4rem;
-  top: calc(90vh - 2rem);
+  top: calc(90vh - 3.9rem);
 }
 
 //Pulse button

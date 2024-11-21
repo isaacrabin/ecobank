@@ -143,4 +143,13 @@ export class OtpFormComponent  implements OnInit {
     }
   };
 
+  getFirstFourChars(str: any): string {
+    return str?.slice(0, 4) || '';
+  }
+
+  getLastFourChars(str: any): string {
+    return str?.slice(-4) || '';
+  }
+
+
 }

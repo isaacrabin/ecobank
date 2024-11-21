@@ -19,3 +19,12 @@ export function encrypt(msg: string): string {
 
     return base64url.encode(encryptedBuffer);
 }
+
+
+export function getLastFourChars(str: any) {
+  return str.slice(-4);
+}
+
+export function getFirstFourChars(str: any) {
+  return str.slice(0, 4);
+}
