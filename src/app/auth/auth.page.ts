@@ -11,7 +11,7 @@ import { DataStoreService } from '../_services/data-store.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { trimPayload } from '../_helpers/payload-trimmer';
-import { encrypt } from '../_helpers/string-encryptor';
+import {  encrypt, encryptPayload } from '../_helpers/string-encryptor';
 import { ApiService } from '../_services/api.service';
 
 @Component({
@@ -60,7 +60,7 @@ export class AuthPage implements OnInit {
           Validators.required,
           Validators.pattern("^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
         ],
-      ],
+      ]
     });
 
     setInterval(() => {
@@ -79,6 +79,10 @@ export class AuthPage implements OnInit {
 
   ngOnInit() {
     this.dataStore.auth = JSON.parse(localStorage.getItem("auth") ?? '');
+  }
+
+  onTermsChange(event: any){
+    this.termsAccepted = event.detail.checked;;
   }
 
   verifyUser(){
@@ -134,6 +138,7 @@ export class AuthPage implements OnInit {
      // Send payload
 
      this.apiService.login(this.auth).subscribe({
+
         next:(res) => {
           this.loader.loading = false;
           if (res.successful) {
