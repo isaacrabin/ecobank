@@ -35,6 +35,7 @@ export class OtpFormComponent  implements OnInit {
     private toastr: ToastrService,
     private modalCtrl: ModalController
   ) {
+
     this.countDown = timer(0, this.tick)
     .pipe(take(this.counter))
     .subscribe(() => {
@@ -112,7 +113,28 @@ export class OtpFormComponent  implements OnInit {
 
     }
 
-  resendCode(){}
+  resendCode(){
+    this.loader.loading = true;
+
+    console.log("AUTH PAYLOAD", this.auth)
+
+    this.apiService.login(this.auth).subscribe({
+
+      next:(res) => {
+        this.loader.loading = false;
+        if (res.successful) {
+          this.toastr.success(res.message);
+        }
+        else{
+          this.toastr.error(res.message);
+        }
+      },
+      error:(err) => {
+         this.loader.loading = false;
+         this.toastr.error(err.message);
+      }
+     });
+  }
 
   back(){
     this.modalCtrl.dismiss();

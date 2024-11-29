@@ -85,9 +85,6 @@ export class AuthPage implements OnInit {
     this.termsAccepted = event.detail.checked;;
   }
 
-  verifyUser(){
-    this.validateOtp();
-  }
 
   checkboxChanged(){}
 
@@ -103,10 +100,10 @@ export class AuthPage implements OnInit {
 
 
 
-  async validateOtp(){
+  async validateOtp(data: any){
     const modal = await this.modalCtrl.create({
       component: OtpFormComponent,
-      componentProps:{ auth: this.dataStore.auth},
+      componentProps:{ auth: data},
     });
     await modal.present();
   }
@@ -143,7 +140,7 @@ export class AuthPage implements OnInit {
           this.loader.loading = false;
           if (res.successful) {
             this.toastr.success(res.message);
-            this.validateOtp();
+            this.validateOtp(this.auth);
           }
           else{
             this.toastr.error(res.message);
